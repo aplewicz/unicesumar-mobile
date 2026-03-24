@@ -93,7 +93,9 @@ Sugestão de estratégia para acompanhamento:
 
 ## Trabalhos Práticos da Disciplina
 
-Esta disciplina possui atividades práticas que devem ser desenvolvidas em grupo ao longo do semestre.
+Esta disciplina possui atividades práticas ao longo do semestre.
+**A Atividade Avaliativa 1 é individual.**
+As Atividades Avaliativas 2, 3 e 4 devem ser desenvolvidas em grupo.
 Os trabalhos têm como objetivo consolidar os conceitos estudados em aula por meio do desenvolvimento de aplicações utilizando **Dart** e **Flutter**.
 
 ### Arquivos das Atividades Avaliativas
@@ -175,18 +177,6 @@ Na **semana de provas teóricas**, os grupos deverão:
 - explicar a estrutura do código desenvolvido
 
 Caso o grupo **não consiga explicar o funcionamento da própria implementação**, a nota poderá ser reduzida.
-
-### \Critérios de Avaliação (T2, T3 e T4)
-
-Pontuação máxima de cada trabalho: **2,5 pontos**
-
-| Critério | Pontos |
-|--------|--------|
-| Funcionamento da aplicação | 1,0 |
-| Uso correto dos conceitos da disciplina | 0,7 |
-| Organização e qualidade do código | 0,4 |
-| Documentação do projeto (README) | 0,2 |
-| Participação no repositório (commits) | 0,1 |
 
 ### Sugestão para o README dos Trabalhos
 
