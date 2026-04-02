@@ -160,23 +160,33 @@ https://github.com/grupo-exemplo/trabalho-mobile
 
 O e-mail deve incluir **em cópia (CC)** o endereço de e-mail de **todos os integrantes da equipe**.
 
-#### Trabalho em Grupo
+#### Entrega por apresentação ou vídeo
 
-- Os trabalhos podem ser realizados em **grupos de até 5 participantes**.
-
-#### Participação Individual
-
-- Cada integrante do grupo deve possuir **pelo menos um commit relevante** relacionado ao desenvolvimento da atividade no repositório.
-
-#### Apresentação
-
-Na **semana de provas teóricas**, os grupos deverão:
+- A entrega poderá ser feita por **apresentação presencial** ou por **vídeo**.
+- **Uma modalidade substitui a outra**: se a apresentação for em vídeo, não é necessário apresentar presencialmente, e vice-versa.
+- Em qualquer modalidade, **cada integrante** deve explicar um trecho do código desenvolvido.
+- Prazo de entrega:
+  - **Engenharia de Software:** **13/04**, até **22h**.
+  - **Análise e Desenvolvimento de Sistemas:** **14/04**, até **22h**.
+  
+Os grupos deverão:
 
 - executar a aplicação
 - demonstrar as funcionalidades implementadas
 - explicar a estrutura do código desenvolvido
 
 Caso o grupo **não consiga explicar o funcionamento da própria implementação**, a nota poderá ser reduzida.
+Todos os intrgrantes do grupo devem participar.
+  
+
+#### Trabalho em Grupo
+
+- Os trabalhos podem ser realizados em **grupos de até 6 participantes**.
+
+#### Participação Individual
+
+- Cada integrante do grupo deve possuir **pelo menos um commit relevante** relacionado ao desenvolvimento da atividade no repositório.
+
 
 ### Sugestão para o README dos Trabalhos
 

@@ -47,3 +47,9 @@ O arquivo **README.md** deve conter:
 - Incluir no corpo do e-mail: nome completo do estudante, usuário GitHub e link do repositório.
 - Atividade de caráter **individual**.
 - O estudante deve possuir ao menos **um commit relevante**.
+- A entrega pode ser feita por **apresentação presencial** ou por **vídeo**.
+- **Uma modalidade substitui a outra**.
+- Em qualquer modalidade, o estudante deve **explicar um trecho do código**.
+- Prazo de entrega:
+  - **Engenharia de Software:** **13/04**, até **22h**.
+  - **Análise e Desenvolvimento de Sistemas:** **14/04**, até **22h**.

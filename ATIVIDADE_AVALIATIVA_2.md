@@ -68,3 +68,9 @@ O README deve conter:
 - Colocar em **CC** o e-mail de todos os integrantes.
 - Grupos de até **5 participantes**.
 - Cada integrante deve possuir ao menos **um commit relevante**.
+- A entrega pode ser feita por **apresentação presencial** ou por **vídeo**.
+- **Uma modalidade substitui a outra**.
+- Em qualquer modalidade, **cada integrante** deve explicar um trecho do código.
+- Prazo de entrega:
+  - **Engenharia de Software:** **13/04**, até **22h**.
+  - **Análise e Desenvolvimento de Sistemas:** **14/04**, até **22h**.
