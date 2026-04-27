@@ -3,33 +3,21 @@ import 'package:flutter/material.dart';
 import '../models/tema_item.dart';
 
 class TemasGridView extends StatelessWidget {
-  const TemasGridView({
-    super.key,
-    required this.temas,
-    required this.onTemaTap,
-  });
+  const TemasGridView({super.key, required this.temas});
 
   final List<TemaItem> temas;
-  final ValueChanged<TemaItem> onTemaTap;
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-      itemCount: temas.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisSpacing: 12,
-        crossAxisSpacing: 12,
-        childAspectRatio: 1.6,
-      ),
-      itemBuilder: (BuildContext context, int index) {
-        final TemaItem tema = temas[index];
-
-        return InkWell(
-          borderRadius: BorderRadius.circular(12),
-          onTap: () => onTemaTap(tema),
-          child: Container(
+    return GridView.count(
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+      crossAxisCount: 3,
+      mainAxisSpacing: 8,
+      crossAxisSpacing: 8,
+      childAspectRatio: 0.95,
+      children: <Widget>[
+        for (final TemaItem tema in temas)
+          Container(
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
@@ -55,13 +43,13 @@ class TemasGridView extends StatelessWidget {
                 Container(color: tema.cor.withValues(alpha: 0.45)),
                 Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(6),
                     child: Text(
                       tema.nome,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 16,
+                        fontSize: 12,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -70,8 +58,7 @@ class TemasGridView extends StatelessWidget {
               ],
             ),
           ),
-        );
-      },
+      ],
     );
   }
 }

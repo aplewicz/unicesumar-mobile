@@ -1,146 +1,115 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'models/filme_item.dart';
 import 'models/tema_item.dart';
 import 'widgets/filmes_listview.dart';
 import 'widgets/temas_gridview.dart';
 
-final List<FilmeItem> filmes = <FilmeItem>[
-  const FilmeItem(
-    titulo: 'A Origem',
-    imageUrl: 'https://picsum.photos/seed/a-origem/600/350',
-  ),
-  const FilmeItem(
-    titulo: 'Interestelar',
-    imageUrl: 'https://picsum.photos/seed/interestelar/600/350',
-  ),
-  const FilmeItem(
-    titulo: 'Cidade de Deus',
-    imageUrl: 'https://picsum.photos/seed/cidade-de-deus/600/350',
-  ),
-  const FilmeItem(
-    titulo: 'Matrix',
-    imageUrl: 'https://picsum.photos/seed/matrix/600/350',
-  ),
-  const FilmeItem(
-    titulo: 'Parasita',
-    imageUrl: 'https://picsum.photos/seed/parasita/600/350',
-  ),
-];
-
-final List<TemaItem> temas = <TemaItem>[
-  const TemaItem(
-    nome: 'Acao',
+const List<TemaItem> temas = <TemaItem>[
+  TemaItem(
+    nome: 'Ação',
     imageUrl: 'https://picsum.photos/seed/acao/500/350',
     cor: Color(0xFF264653),
   ),
-  const TemaItem(
-    nome: 'Comedia',
+  TemaItem(
+    nome: 'Comédia',
     imageUrl: 'https://picsum.photos/seed/comedia/500/350',
     cor: Color(0xFF2A9D8F),
   ),
-  const TemaItem(
+  TemaItem(
     nome: 'Drama',
     imageUrl: 'https://picsum.photos/seed/drama/500/350',
     cor: Color(0xFFE76F51),
   ),
-  const TemaItem(
-    nome: 'Ficcao Cientifica',
+  TemaItem(
+    nome: 'Ficção Científica',
     imageUrl: 'https://picsum.photos/seed/ficcao/500/350',
     cor: Color(0xFF1D3557),
   ),
-  const TemaItem(
+  TemaItem(
     nome: 'Suspense',
     imageUrl: 'https://picsum.photos/seed/suspense/500/350',
     cor: Color(0xFF6A4C93),
   ),
-  const TemaItem(
-    nome: 'Animacao',
+  TemaItem(
+    nome: 'Animação',
     imageUrl: 'https://picsum.photos/seed/animacao/500/350',
     cor: Color(0xFFF4A261),
   ),
 ];
 
-void main() {
-  runApp(const MainApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final List<FilmeItem> filmes = await carregarFilmes();
+  runApp(MainApp(filmes: filmes));
+}
+
+Future<List<FilmeItem>> carregarFilmes() async {
+  final String jsonString = await rootBundle.loadString(
+    'assets/data/filmes.json',
+  );
+  final List<dynamic> dados = jsonDecode(jsonString) as List<dynamic>;
+
+  return dados
+      .cast<Map<String, dynamic>>()
+      .map(FilmeItem.fromJson)
+      .toList(growable: false);
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  const MainApp({super.key, required this.filmes});
+
+  final List<FilmeItem> filmes;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Aula - Movie App (ListView e GridView)',
+      title: 'Aula - Lista de Filmes',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF1F6FEB)),
         useMaterial3: true,
       ),
-      home: const TelaPrincipalMovieApp(),
+      home: TelaPrincipalMovieApp(filmes: filmes),
     );
   }
 }
 
-// Passo 2: Estrutura da tela com StatefulWidget, Scaffold, SafeArea e Column.
-class TelaPrincipalMovieApp extends StatefulWidget {
-  const TelaPrincipalMovieApp({super.key});
+class TelaPrincipalMovieApp extends StatelessWidget {
+  const TelaPrincipalMovieApp({super.key, required this.filmes});
 
-  @override
-  State<TelaPrincipalMovieApp> createState() => _TelaPrincipalMovieAppState();
-}
-
-class _TelaPrincipalMovieAppState extends State<TelaPrincipalMovieApp> {
-  void _mostrarSnackBar(String mensagem) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(content: Text(mensagem), duration: const Duration(seconds: 2)),
-      );
-  }
+  final List<FilmeItem> filmes;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Movie App - Colecoes com Flutter'),
+        title: const Text('Movie App - Lista de Filmes'),
         centerTitle: true,
       ),
       body: SafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
             const Padding(
               padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
+              child: Text(
+                'Temas',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+            Expanded(flex: 1, child: TemasGridView(temas: temas)),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
               child: Text(
                 'Filmes em Destaque',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
-
-            FilmesListView(
-              filmes: filmes,
-              onFilmeTap: (FilmeItem filme) {
-                _mostrarSnackBar('Abrindo detalhes de "${filme.titulo}"...');
-              },
-            ),
-
-            const Padding(
-              padding: EdgeInsets.fromLTRB(16, 20, 16, 8),
-              child: Text(
-                'Categorias',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
-
-            Expanded(
-              child: TemasGridView(
-                temas: temas,
-                onTemaTap: (TemaItem tema) {
-                  _mostrarSnackBar('Filtrando filmes de "${tema.nome}"...');
-                },
-              ),
-            ),
+            Expanded(flex: 4, child: FilmesListView(filmes: filmes)),
           ],
         ),
       ),

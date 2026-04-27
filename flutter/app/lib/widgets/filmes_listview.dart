@@ -3,41 +3,32 @@ import 'package:flutter/material.dart';
 import '../models/filme_item.dart';
 
 class FilmesListView extends StatelessWidget {
-  const FilmesListView({
-    super.key,
-    required this.filmes,
-    required this.onFilmeTap,
-  });
+  const FilmesListView({super.key, required this.filmes});
 
   final List<FilmeItem> filmes;
-  final ValueChanged<FilmeItem> onFilmeTap;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 180,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: filmes.length,
-        itemBuilder: (BuildContext context, int index) {
-          final FilmeItem filme = filmes[index];
-
-          return Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: InkWell(
-              borderRadius: BorderRadius.circular(14),
-              onTap: () => onFilmeTap(filme),
-              child: Container(
-                width: 240,
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    Image.network(
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+      children: <Widget>[
+        for (final FilmeItem filme in filmes)
+          Center(
+            child: Container(
+              width: 220,
+              margin: const EdgeInsets.only(bottom: 16),
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.black12),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AspectRatio(
+                    aspectRatio: 27 / 40,
+                    child: Image.network(
                       filme.imageUrl,
                       fit: BoxFit.cover,
                       errorBuilder:
@@ -47,51 +38,34 @@ class FilmesListView extends StatelessWidget {
                             StackTrace? stackTrace,
                           ) {
                             return Container(
-                              color: const Color(0xFF1F6FEB),
+                              color: const Color(0xFFB0BEC5),
                               alignment: Alignment.center,
                               child: const Icon(
                                 Icons.broken_image_rounded,
                                 color: Colors.white,
-                                size: 36,
+                                size: 40,
                               ),
                             );
                           },
                     ),
-                    Container(
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: <Color>[Color(0x33000000), Color(0xCC000000)],
-                        ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Text(
+                      filme.titulo,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(14),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            filme.titulo,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          );
-        },
-      ),
+          ),
+      ],
     );
   }
 }

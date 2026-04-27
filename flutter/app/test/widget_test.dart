@@ -1,19 +1,22 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:example_application/main.dart';
+import 'package:example_application/models/filme_item.dart';
 
 void main() {
-  testWidgets('Renderiza formulario inicial', (WidgetTester tester) async {
-    await tester.pumpWidget(const AulaFormularioApp());
+  testWidgets('Renderiza tela inicial de filmes', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MainApp(
+        filmes: const <FilmeItem>[
+          FilmeItem(
+            titulo: 'A Origem',
+            imageUrl: 'https://example.com/poster.jpg',
+          ),
+        ],
+      ),
+    );
 
-    expect(find.text('Formulario com Validacao'), findsOneWidget);
-    expect(find.text('Registrar dados'), findsOneWidget);
+    expect(find.text('Movie App - Lista de Filmes'), findsOneWidget);
+    expect(find.text('A Origem'), findsOneWidget);
   });
 }
