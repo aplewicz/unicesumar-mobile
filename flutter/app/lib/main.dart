@@ -48,9 +48,9 @@ Future<void> main() async {
 }
 
 Future<List<FilmeItem>> carregarFilmes() async {
-  final String jsonString = await rootBundle.loadString(
-    'assets/data/filmes.json',
-  );
+  final String jsonString =
+      await rootBundle.loadString('assets/data/filmes.json');
+
   final List<dynamic> dados = jsonDecode(jsonString) as List<dynamic>;
 
   return dados
@@ -110,6 +110,58 @@ class TelaPrincipalMovieApp extends StatelessWidget {
               ),
             ),
             Expanded(flex: 4, child: FilmesListView(filmes: filmes)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+//
+// 🔥 TELA DE DETALHE (NO MESMO ARQUIVO)
+//
+
+class DetalheFilmePage extends StatelessWidget {
+  const DetalheFilmePage({super.key, required this.filme});
+
+  final FilmeItem filme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(filme.titulo),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+Center(
+  child: ClipRRect(
+    borderRadius: BorderRadius.circular(16),
+    child: Image.network(
+      filme.imageUrl,
+      height: 400,
+      fit: BoxFit.cover,
+    ),
+  ),
+),
+            const SizedBox(height: 16),
+            Text(
+              filme.titulo,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              filme.descricao ?? 'Sem descrição disponível.',
+              style: const TextStyle(fontSize: 16),
+              textAlign: TextAlign.justify,
+            ),
           ],
         ),
       ),

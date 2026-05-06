@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/filme_item.dart';
+import '../main.dart'; // para acessar a tela de detalhe
 
 class FilmesListView extends StatelessWidget {
   const FilmesListView({super.key, required this.filmes});
@@ -15,53 +16,67 @@ class FilmesListView extends StatelessWidget {
         final filme = filmes[index];
 
         return Center(
-          child: Container(
-            width: 220,
-            margin: const EdgeInsets.only(bottom: 16),
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              color: Colors.white,
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.black12),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AspectRatio(
-                  aspectRatio: 27 / 40,
-                  child: Image.network(
-                    filme.imageUrl,
-                    fit: BoxFit.cover,
-                    errorBuilder: (
-                      BuildContext context,
-                      Object error,
-                      StackTrace? stackTrace,
-                    ) {
-                      return Container(
-                        color: const Color(0xFFB0BEC5),
-                        alignment: Alignment.center,
-                        child: const Icon(
-                          Icons.broken_image_rounded,
-                          color: Colors.white,
-                          size: 40,
-                        ),
-                      );
-                    },
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => DetalheFilmePage(filme: filme),
                   ),
+                );
+              },
+              child: Container(
+                width: 220,
+                margin: const EdgeInsets.only(bottom: 16),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.black12),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Text(
-                    filme.titulo,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AspectRatio(
+                      aspectRatio: 27 / 40,
+                      child: Image.network(
+                        filme.imageUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (
+                          BuildContext context,
+                          Object error,
+                          StackTrace? stackTrace,
+                        ) {
+                          return Container(
+                            color: const Color(0xFFB0BEC5),
+                            alignment: Alignment.center,
+                            child: const Icon(
+                              Icons.broken_image_rounded,
+                              color: Colors.white,
+                              size: 40,
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Text(
+                        filme.titulo,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         );
